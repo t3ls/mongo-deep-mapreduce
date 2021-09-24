@@ -84,19 +84,17 @@ public static class Map extends Mapper<Text, WritableBSONObject, Text, Text> {
 
 Look at the provided [MongoToJson](src/main/java/com/groupon/mapreduce/mongo/MongoToJson.java) job for a full example.
 
-Running the Tests
------------------
+Build
+-----
 
-To run the tests you must first generate a set of test database files.
-
-- Start a local Mongo instance at port 27017
-- Run the following to build and insert specific data used for testing
-
-```
-mvn -Dmaven.test.skip=true clean package
-mvn test-compile
-java -cp target/test-classes/:target/mongo-deep-mapreduce-jar-with-dependencies.jar com.groupon.mapreduce.mongo.GenerateTestDB
+```shell
+mvn clean package
 ```
 
-- Then copy the deepmr_test* files from wherever your Mongo instance keeps its data (often in /data) to src/test/db
-- Now you can run `mvn test`
+Using MongoToJson Without HDFS
+------------------------------
+
+```shell
+hadoop jar target/mongo-deep-mapreduce-1.0.0-shaded.jar com.groupon.mapreduce.mongo.MongoToJson file:///data/db admin system.users ./output
+```
+
